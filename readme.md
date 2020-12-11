@@ -5,6 +5,10 @@
 
 ## It is developed for a public welfare program, a weibo robot [@寻人微博](https://weibo.com/xrwbyangyangfuture).
 
+## Supplement
+
+We have made some modifications to this project to apply to our project, please select "Directly from the repository" for the installation method.
+
 ## installation
 It works well on macOS Mojave with python=3.6.
 ```
@@ -14,7 +18,8 @@ pip install cocoNLP
 ## Directly from the repository
 
 ```
-git clone https://github.com/fighting41love/cocoNLP.git
+original:git clone https://github.com/fighting41love/cocoNLP.git
+now:git clone https://github.com/zzylydx/cocoNLP.git
 cd cocoNLP
 python setup.py install
 ```
