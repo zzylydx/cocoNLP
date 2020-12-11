@@ -160,19 +160,25 @@ class extractor():
 
     def extract_locations(self, text):
         """
-        extract locations by from texts
-        eg: extract_locations('我家住在陕西省安康市汉滨区。')
+                extract locations by from texts
+                eg: extract_locations('我家住在陕西省安康市汉滨区。')
 
 
-        :param: raw_text<string>
-        :return: location_list<list> eg: ['陕西省安康市汉滨区', '安康市汉滨区', '汉滨区']
+                :param: raw_text<string>
+                :return: location_list<list> eg: ['陕西省安康市汉滨区', '安康市汉滨区', '汉滨区']
 
-        """
-        if text=='':
+                """
+        if text == '':
             return []
         seg_list = [(str(t.word), str(t.nature)) for t in HanLP.segment(text)]
         location_list = self.get_location(seg_list)
-        return location_list
+
+        # 修改 2020/10/14
+        if location_list != []:
+            return True
+        else:
+            return False
+        # return location_list
 
     def replace_cellphoneNum(self, text):
         """
@@ -242,23 +248,28 @@ class extractor():
 
     def extract_name(self, text):
         """
-        extract chinese names from texts
-        eg: extract_time('急寻王龙，短发，王龙，男，丢失发型短发，...如有线索，请迅速与警方联系：19909156745')
+                extract chinese names from texts
+                eg: extract_time('急寻王龙，短发，王龙，男，丢失发型短发，...如有线索，请迅速与警方联系：19909156745')
 
 
-        :param: raw_text<string>
-        :return: name_list<list> eg: ['王龙', '王龙']
+                :param: raw_text<string>
+                :return: name_list<list> eg: ['王龙', '王龙']
 
-        """
-        if text=='':
-            return []
+                """
+        # if text=='':
+        #     return []
         seg_list = [(str(t.word), str(t.nature)) for t in HanLP.segment(text)]
         names = []
         for ele_tup in seg_list:
             if 'nr' in ele_tup[1]:
                 names.append(ele_tup[0])
                 # print(ele_tup[0],ele_tup[1])
-        return self.most_common(names)
+        # Modified，2020/10/14
+        result = self.most_common(names)
+        if names != []:
+            return True
+        else:
+            return False
 
     def most_common(self, content_list):
         """
@@ -275,8 +286,42 @@ class extractor():
             return None
         return max(set(content_list), key=content_list.count)
 
+    # Modified 2020/12/11
+    def extract_occupation(self,text):
+        """
+        return true or false if is occupation
 
+        :param text:
+        :return: true or false
+        """
+        seg_list = [(str(t.word), str(t.nature)) for t in HanLP.segment(text)]
 
+        for ele_tup in seg_list:
+            if 'nnt' in ele_tup[1]:
+                return True
+                break
+            else:
+                continue
+
+        return False
+
+    def extract_Company(self,text):
+        """
+        return true or false if is company
+
+        :param text:
+        :return: true or false
+        """
+        seg_list = [(str(t.word), str(t.nature)) for t in HanLP.segment(text)]
+
+        for ele_tup in seg_list:
+            if 'nt' in ele_tup[1]:
+                return True
+                break
+            else:
+                continue
+
+        return False
 
 
 if __name__ == '__main__':
