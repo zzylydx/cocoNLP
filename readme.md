@@ -5,7 +5,7 @@
 
 ## It is developed for a public welfare program, a weibo robot [@寻人微博](https://weibo.com/xrwbyangyangfuture).
 
-## Supplement
+## <span style="color: red">Supplement</span> 
 
 We have made some modifications to this project to apply to our project, please select "Directly from the repository" for the installation method.
 
